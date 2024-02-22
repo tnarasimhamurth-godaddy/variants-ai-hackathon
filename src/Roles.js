@@ -6,7 +6,7 @@ function Roles(props) {
   const rolesMap = {
     careGuide: 'Care Guide',
     engineer: 'Engineer',
-    other: 'Other'
+    customer: 'Customer'
   };
   const [role, setRole] = useState(null);
   const [showTargetImg, setShowTargetImg] = useState(false);
@@ -41,7 +41,7 @@ function Roles(props) {
         </div>
         <div style={{margin: '15px'}}>
       { Object.keys(rolesMap).map(r =>
-      (<div style={{margin: '15px'}}>
+      (<div key={r} style={{margin: '15px'}}>
           <button className="secondary-button" onClick={ () => onClickRole(r) }>{ rolesMap[r] } </button>
         </div>)
           ) }

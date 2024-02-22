@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import goBuddyLogo from './images/gobuddy-target.png';
+import TrainTicket from './TrainTicket';
 
 function Roles(props) {
   const rolesMap = {
@@ -10,6 +11,7 @@ function Roles(props) {
   const [role, setRole] = useState(null);
   const [showTargetImg, setShowTargetImg] = useState(false);
   const [showErrorBanner, setShowErrorBanner] = useState(false);
+  const [activateARScene, setActivateARScene] = useState(false);
 
   const onClickRole = (role) => {
     setRole(role);
@@ -20,6 +22,12 @@ function Roles(props) {
     if(role)
       setShowTargetImg(true);
   }
+
+  const onClickStart = () => {
+    console.log("start clicked");
+    setActivateARScene(true);
+    setShowTargetImg(false);
+  };
 
   console.log('role', !role);
   return (
@@ -47,9 +55,11 @@ function Roles(props) {
           </div>
         <div>
         <p>Make sure your GoBuddy image target is ready and sitting flat on your desk. Don't have the image target? Visit this site to print it.</p>
-        <button style={{margin:'10px'}} className="black-button"> I'm Ready! </button>
+        <button style={{margin:'10px'}} onClick={onClickStart} className="black-button"> I'm Ready! </button>
         </div>
       </div> }
+
+      {activateARScene && ( <TrainTicket />) }
   </>
   );
 }

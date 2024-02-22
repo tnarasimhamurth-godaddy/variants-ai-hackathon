@@ -36,12 +36,7 @@ export default function App() {
   return (
     <div>
       <button className='ux-button ux-button-primary ' onClick={toggleModal}>Open Modal</button>
-
-      {showModal && (
-    <Modal isOpen={ true } onClose={ () => setShowRoles(false) }>
       { welcomeComponent }
-        </Modal>
-      ) }
     </div>
   );
 }

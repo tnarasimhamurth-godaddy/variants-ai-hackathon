@@ -23,7 +23,7 @@ export default function App() {
 
       { !showRoles &&
         <div style={{margin:'10%'}}>
-        <h2>Hi! Welcome top the GoBuddy AR App!</h2>
+        <h2>Hi! Welcome to the GoBuddy AR App!</h2>
         <div style={{padding:'1rem'}}>
           <img src={ arIcon } />
         </div>

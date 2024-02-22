@@ -1,0 +1,57 @@
+import React, {useState} from 'react';
+import goBuddyLogo from './images/gobuddy-target.png';
+
+function Roles(props) {
+  const rolesMap = {
+    careGuide: 'Care Guide',
+    engineer: 'Engineer',
+    other: 'Other'
+  };
+  const [role, setRole] = useState(null);
+  const [showTargetImg, setShowTargetImg] = useState(false);
+  const [showErrorBanner, setShowErrorBanner] = useState(false);
+
+  const onClickRole = (role) => {
+    setRole(role);
+  }
+
+  const onClickNext = () => {
+    console.log('Next clicked');
+    if(role)
+      setShowTargetImg(true);
+  }
+
+  console.log('role', !role);
+  return (
+  <>
+    {!showTargetImg && <div>
+        <h2>What's your role?</h2>
+        <div style={{margin: '15px'}}>
+          <p >Please select your role at GoDaddy</p>
+        </div>
+        <div style={{margin: '15px'}}>
+      { Object.keys(rolesMap).map(r =>
+      (<div style={{margin: '15px'}}>
+          <button className="secondary-button" onClick={ () => onClickRole(r) }>{ rolesMap[r] } </button>
+        </div>)
+          ) }
+          </div>
+        <button className="black-button" disabled={ !role } onClick={ onClickNext }> Next </button>
+    </div>
+      }
+      { showTargetImg &&
+        <div style={ { margin: '10px' } }>
+          <h2>Get your AR image target Ready!</h2>
+          <div style={{margin: '15px'}}>
+            <img src={ goBuddyLogo } style={ { height: '15rem' } } />
+          </div>
+        <div>
+        <p>Make sure your GoBuddy image target is ready and sitting flat on your desk. Don't have the image target? Visit this site to print it.</p>
+        <button style={{margin:'10px'}} className="black-button"> I'm Ready! </button>
+        </div>
+      </div> }
+  </>
+  );
+}
+
+export default Roles;

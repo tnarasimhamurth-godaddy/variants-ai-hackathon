@@ -7,3 +7,4 @@ css/
 npm-debug.log
 selenium-debug.log
 build/
+.vscode/

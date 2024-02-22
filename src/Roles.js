@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import goBuddyLogo from './images/gobuddy-target.png';
 import TrainTicket from './TrainTicket';
-
+import Speech from './Speech';
 function Roles(props) {
   const rolesMap = {
     careGuide: 'Care Guide',
@@ -32,7 +32,9 @@ function Roles(props) {
   console.log('role', !role);
   return (
   <>
-    {!showTargetImg && <div>
+      { !activateARScene &&
+      <>
+        {!showTargetImg && <div>
         <h2>What's your role?</h2>
         <div style={{margin: '15px'}}>
           <p >Please select your role at GoDaddy</p>
@@ -57,9 +59,16 @@ function Roles(props) {
         <p>Make sure your GoBuddy image target is ready and sitting flat on your desk. Don't have the image target? Visit this site to print it.</p>
         <button style={{margin:'10px'}} onClick={onClickStart} className="black-button"> I'm Ready! </button>
         </div>
-      </div> }
+          </div> }
+        </>
+      }
 
-      {activateARScene && ( <TrainTicket />) }
+      { activateARScene && (
+        <>
+        <TrainTicket />
+        <Speech />
+        </>
+) }
   </>
   );
 }

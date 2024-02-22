@@ -18,7 +18,7 @@ export default function Speech() {
   if (error) return <p>Web Speech API is not available in this browser 🤷‍</p>;
 
   return (
-    <div>
+    <div style={{zIndex: '10'}}>
       <p>Recording: {isRecording.toString()}</p>
       <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
         {isRecording ? 'Stop Recording' : 'Start Recording'}

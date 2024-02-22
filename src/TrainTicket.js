@@ -17,8 +17,7 @@ class TrainTicket extends Component {
             parameters={{
               preset: "pattern",
               type: "pattern",
-              url:
-                "https://raw.githubusercontent.com/lbelfield/augmented-reality/master/src/components/trainTicket/train-ticket.patt"
+              url: "/target/heart.patt"
             }}
           >
             <a-assets-item img id="appTicket" src={appTicket} />

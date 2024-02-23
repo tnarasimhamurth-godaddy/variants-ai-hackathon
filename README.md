@@ -12,7 +12,7 @@ Just chat with GoBuddy to get quick, accurate responses to any questions you mig
 
 **Engineers** can get answers to onboarding and oncall questions.
 
-**Care Agents** can train by talking to GoBuddy who can emulate customer responses.
+**Care Guides** can train by talking to GoBuddy who can emulate customer responses.
 
 ## The Tech
 

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { AFrameRenderer, Marker } from "react-web-ar";
-
+import TextToSpeech from "./TextToSpeech";
 
 function TrainTicket() {
 
-  // hard coded for now - need to set this true only as the response is given, then stop when voice stops.
   const [isTalking, setIsTalking] = useState(false);
 
   return (
@@ -38,6 +37,10 @@ function TrainTicket() {
           </a-gltf-model>
         </Marker>
       </AFrameRenderer>
+      <TextToSpeech
+        text="That's a great question! Let me think about that..."
+        onStart={() => setIsTalking(true)}
+        onEnd={() => setIsTalking(false)} />
     </>
   );
 }

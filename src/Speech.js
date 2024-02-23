@@ -15,19 +15,25 @@ export default function Speech() {
     useLegacyResults: false
   });
   const [response, setResponse] = useState();
+  const [messages, setMessages] = useState();
   const messageRef = useRef();
+
+  useEffect(() => {
+    setMessages(results);
+  }, [results])
 
   const clearMessage = () => {
     stopSpeechToText();
+    setMessages([]);
     messageRef.current.innerHTML = '';
   }
 
   const JWT = 'put that in here';
 
   useEffect(() => {
-    if (!isRecording && results.length > 0){
+    if (!isRecording && messages?.length > 0){
       console.log('Interaction results:', results);
-      const question = results[results.length - 1].transcript;
+      const question = messages[messages.length - 1].transcript;
       const query = {
         moderate: true,
         moderatePrompt: true,
@@ -74,7 +80,7 @@ export default function Speech() {
         })
       .catch(error => console.error(error));
       }
-  }, [isRecording]);
+  }, [isRecording, messages]);
 
   useEffect(() => {
     //convert response to speech
@@ -95,7 +101,7 @@ export default function Speech() {
       </button>
       <button className='black-button clear-button' onClick={ clearMessage }>Clear message</button>
       <div ref={ messageRef }>
-        {results.map((result, i) => (
+        {results.map((result) => (
           <p key={result.timestamp}>{result.transcript}</p>
         ))}
         {interimResult && <p style={{ color: 'blue' }}>{interimResult}</p>}

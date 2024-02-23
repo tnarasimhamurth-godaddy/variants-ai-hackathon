@@ -7,7 +7,7 @@ import journeyDetails from "./journey-details.png";
 import informationIcon from "./information-icon.png";
 import trainIcon from "./train-icon.png";
 import userProfile from "./user-profile.png";
-import Speech from "./Speech";
+
 class TrainTicket extends Component {
   render() {
     return (

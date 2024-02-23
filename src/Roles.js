@@ -29,7 +29,6 @@ function Roles(props) {
     setShowTargetImg(false);
   };
 
-  console.log('role', !role);
   return (
   <>
       { !activateARScene &&

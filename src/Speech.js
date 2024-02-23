@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useSpeechToText from 'react-hook-speech-to-text';
 
 // ref: https://codesandbox.io/p/github/Ronald-Cifuentes/react-speech-to-text/master
@@ -14,13 +14,77 @@ export default function Speech() {
     continuous: true,
     useLegacyResults: false
   });
+  const [response, setResponse] = useState();
+  const JWT = 'put that in here';
 
-  if (error) return <p>Web Speech API is not available in this browser 🤷‍</p>;
+  useEffect(() => {
+    if (!isRecording && results.length > 0){
+      console.log('Interaction results:', results);
+      const question = results[results.length - 1].transcript;
+      const query = {
+        moderate: true,
+        moderatePrompt: true,
+        moderateTemplate: false,
+        isTemplate: false,
+        store: false,
+        props: {},
+        providerOptions: {
+          model: 'gpt-3.5-turbo',
+          temperature: 0.7,
+          max_tokens: 1024,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0
+        },
+        privacy: {
+          mode: 'detect',
+          threshold: 0.85
+        },
+        provider: 'openai_chat',
+        prompts: [
+          {
+            from: 'system',
+            content: 'You are a Tech Employer with a Care, HR, Marketing, Engineer, Helpdesk divisions.Helpdesk helps procure different electronic equipments.Engineer helps build software products'
+          },
+          {
+            from: "user",
+            content: `${question}`
+          }
+        ],
+        source: 'playground',
+      }
+      fetch('https://caas.api.test-godaddy.com/v1/prompts?effort=default', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json',
+          'Authorization': `sso-jwt ${JWT}`
+        },
+        body: JSON.stringify(query, question)
+      }).then(response => response.json())
+        .then(json => {
+          setResponse(json.data.value.content)
+        })
+      .catch(error => console.error(error));
+      }
+  }, [isRecording]);
+
+  useEffect(() => {
+    //convert response to speech
+    if (response) {
+      const speech = new SpeechSynthesisUtterance(response);
+      window.speechSynthesis.speak(speech);
+    }
+  }, [response]);
+
+  if (error) {
+    return <p>Web Speech API is not available in this browser 🤷‍</p>;
+  }
 
   return (
     <div style={{zIndex: '10'}}>
       <p>Recording: {isRecording.toString()}</p>
-      <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
+      <button className='black-button' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
         {isRecording ? 'Stop Recording' : 'Start Recording'}
       </button>
       <ul>

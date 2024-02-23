@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import useSpeechToText from 'react-hook-speech-to-text';
 
 // ref: https://codesandbox.io/p/github/Ronald-Cifuentes/react-speech-to-text/master
-export default function Speech() {
+export default function Speech(props) {
   const {
     error,
     interimResult,
@@ -86,6 +86,13 @@ export default function Speech() {
     //convert response to speech
     if (response) {
       const speech = new SpeechSynthesisUtterance(response);
+      speech.onstart = () => {
+        props.onSpeaking(true);
+      };
+      speech.onend = () => {
+        props.onSpeaking(false);
+      };
+  
       window.speechSynthesis.speak(speech);
     }
   }, [response]);

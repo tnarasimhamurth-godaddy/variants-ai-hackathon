@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { AFrameRenderer, Marker } from "react-web-ar";
-import TextToSpeech from "./TextToSpeech";
 
-function TrainTicket() {
-
-  const [isTalking, setIsTalking] = useState(false);
-
+function TrainTicket(props) {
   return (
     <>
       <AFrameRenderer arToolKit={{ sourceType: "webcam" }}>
@@ -23,7 +19,7 @@ function TrainTicket() {
             rotation="0 -90 90"
           >
             {/* adds a lil wiggle :3 */}
-            {isTalking &&
+            {props.isTalking &&
               <a-animation
                 attribute="rotation"
                 dur="1000"
@@ -37,10 +33,6 @@ function TrainTicket() {
           </a-gltf-model>
         </Marker>
       </AFrameRenderer>
-      <TextToSpeech
-        text="That's a great question! Let me think about that..."
-        onStart={() => setIsTalking(true)}
-        onEnd={() => setIsTalking(false)} />
     </>
   );
 }

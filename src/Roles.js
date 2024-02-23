@@ -12,6 +12,11 @@ function Roles(props) {
   const [showTargetImg, setShowTargetImg] = useState(false);
   const [showErrorBanner, setShowErrorBanner] = useState(false);
   const [activateARScene, setActivateARScene] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const onSpeaking = (val) => {
+    setIsSpeaking(val);
+  }
 
   const onClickRole = (role) => {
     setRole(role);
@@ -64,8 +69,8 @@ function Roles(props) {
 
       { activateARScene && (
         <>
-        <TrainTicket />
-        <Speech />
+        <TrainTicket isTalking={isSpeaking} />
+        <Speech onSpeaking={onSpeaking} />
         </>
 ) }
   </>

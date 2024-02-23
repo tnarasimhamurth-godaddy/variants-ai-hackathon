@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useSpeechToText from 'react-hook-speech-to-text';
 
 // ref: https://codesandbox.io/p/github/Ronald-Cifuentes/react-speech-to-text/master
@@ -15,6 +15,13 @@ export default function Speech() {
     useLegacyResults: false
   });
   const [response, setResponse] = useState();
+  const messageRef = useRef();
+
+  const clearMessage = () => {
+    stopSpeechToText();
+    messageRef.current.innerHTML = '';
+  }
+
   const JWT = 'put that in here';
 
   useEffect(() => {
@@ -82,17 +89,17 @@ export default function Speech() {
   }
 
   return (
-    <div style={{zIndex: '10'}}>
-      <p>Recording: {isRecording.toString()}</p>
+    <div>
       <button className='black-button' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
         {isRecording ? 'Stop Recording' : 'Start Recording'}
       </button>
-      <ul>
-        {results.map((result) => (
-          <li key={result.timestamp}>{result.transcript}</li>
+      <button className='black-button clear-button' onClick={ clearMessage }>Clear message</button>
+      <div ref={ messageRef }>
+        {results.map((result, i) => (
+          <p key={result.timestamp}>{result.transcript}</p>
         ))}
-        {/* {interimResult && <li>{interimResult}</li>} */}
-      </ul>
+        {interimResult && <p style={{ color: 'blue' }}>{interimResult}</p>}
+      </div>
     </div>
   );
 }

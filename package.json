@@ -19,7 +19,7 @@
     "typescript": "3.3.3"
   },
   "scripts": {
-    "start": "HOST=local.test-godaddy.com PORT=8080 react-scripts start",
+    "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

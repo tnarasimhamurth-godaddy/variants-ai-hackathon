@@ -40,10 +40,15 @@
   color: black;
 }
 
+.record-button, .clear-button {
+  margin: 10px;
+  width: 25%;
+}
+
 /* The Modal (background) */
 .modal {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  /*z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -66,7 +71,7 @@
 /* The Close Button */
 .close {
   color: #aaa;
-  float: right;
+  /* float: right; <-- worried this is making my buttons fly off the page */
   font-size: 28px;
   font-weight: bold;
 }

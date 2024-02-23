@@ -33,7 +33,6 @@ export default function Speech(props) {
 
   useEffect(() => {
     if (!isRecording && messages?.length > 0){
-      console.log('Interaction results:', results);
       const question = messages[messages.length - 1].transcript;
       const query = {
         moderate: true,
@@ -58,7 +57,7 @@ export default function Speech(props) {
         prompts: [
           {
             from: 'system',
-            content: 'You are a Tech Employer with a Care, HR, Marketing, Engineer, Helpdesk divisions.Helpdesk helps procure different electronic equipments.Engineer helps build software products'
+            content: 'You are a Tech Employer with a Care, HR, Marketing, Engineer, Helpdesk divisions.Helpdesk helps procure different electronic equipments.Engineer helps build software products.Offload your AWS infrastructure maintenance with Katana.Our Continuous Delivery Platform “Katana” is generally available for development teams using containerized applications in AWS, which means you can onboard as early as your next sprint.Manages your AWS infrastructure for Amazon Elastic Container Services, Load Balancers, Amazon Elastic Container Registry, Amazon Simple Storage Service (S3), Amazon CloudFront.Gives you tools for troubleshooting and observability, application performance and debugging directly in the Katana UI. ‌‌2024 Solutions day is on MAY 31 9AM PST, Aug 23 9AM PST, Nov 15 at 8AM PST.Inform your supervisor that your headset is broken and Request a new set from Get Help.Performance review happens between Feb 24 to March 7.MBO payouts are on March 8.Promotions and salary change are effective on April 1st.Airo is an AI-powered experience that is currently included in every new Godaddy domain purchase. Airo helps you grow online presence by creating a customized website, generating logo options , social media posts and online ads.Also helps setting up email address and creating email marketing templates to send to your customer.'
           },
           {
             from: "user",
@@ -67,6 +66,7 @@ export default function Speech(props) {
         ],
         source: 'playground',
       }
+
       fetch('https://caas.api.test-godaddy.com/v1/prompts?effort=default', {
         method: 'POST',
         headers: {
@@ -109,7 +109,13 @@ export default function Speech(props) {
 
   return (
     <div>
-      <button className='black-button' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
+    <div style={{margin: '3rem'}}>
+        <h4>
+          { isRecording ? '"Stop Recording" when you are done.' :
+            'When you are ready to ask your question, click "Start Recording" button.' }
+          </h4>
+    </div>
+      <button className='black-button recording' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
         {isRecording ? 'Stop Recording' : 'Start Recording'}
       </button>
       <button className='black-button clear-button' onClick={ clearMessage }>Clear message</button>

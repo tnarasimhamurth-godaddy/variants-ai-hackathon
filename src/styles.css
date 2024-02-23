@@ -15,6 +15,10 @@
   height:50px
 }
 
+.black-button.recording {
+  width: 25%;
+}
+
 .black-button:hover {
   background-color: #333;
 }

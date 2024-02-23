@@ -8,13 +8,7 @@ export default function App() {
   const [showRoles, setShowRoles] = useState(false);
  const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
-
   const onClick = () => {
-    console.log("Button clicked");
     setShowRoles(true);
   };
 

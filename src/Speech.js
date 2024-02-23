@@ -17,6 +17,7 @@ export default function Speech(props) {
   const [response, setResponse] = useState();
   const [messages, setMessages] = useState();
   const messageRef = useRef();
+  const synth = window.speechSynthesis;
 
   useEffect(() => {
     setMessages(results);
@@ -28,7 +29,7 @@ export default function Speech(props) {
     messageRef.current.innerHTML = '';
   }
 
-  const JWT = 'put that in here';
+  const JWT = 'eyJhbGciOiAiUlMyNTYiLCAia2lkIjogIktpLXZsQ0owUmcifQ.eyJhdXRoIjogImJhc2ljIiwgImZ0YyI6IDIsICJpYXQiOiAxNzA4NjQwMzc5LCAianRpIjogInBScmRQSmU1YUJZMl9aM0szTDV5MVEiLCAidHlwIjogImpvbWF4IiwgInZhdCI6IDE3MDg2NDAzNzksICJmYWN0b3JzIjogeyJrX2ZlZCI6IDE3MDg2NDAzNzksICJwX29rdGEiOiAxNzA4NjQwMzc5fSwgImN0eCI6ICIiLCAiYWNjb3VudE5hbWUiOiAidG5hcmFzaW1oYW11cnRoIiwgInN1YiI6ICI0MDYyNzAiLCAidXR5cCI6IDEwMSwgImdyb3VwcyI6IFsiV0ZILVBDSSIsICJBY2NvdW50TG9ja01hbmFnZW1lbnQiLCAiQ1JNX1NraXAiLCAiQzMtVGllcjEiLCAiQzMtVGllcjAiLCAiRGV2LVdlYnNpdGVCdWlsZGVyIl19.VcvnxD3J7kfBOEOMLdf_RIl8piq5KbNlnT1oJyqJD2J3GqQqaFG7H-WutT6PPCWSVqS2qKqZ8OJL1n_hM_0nXoFljG2-N949WTXvlDyvH2etJXqSIKyUvWxqCHjvylXcNfaGXy-wjCE4sB8wyqroDbU906V5zU141k2IrK9L5Iz0nI6aIUchJ-cc8WGwHglxEHmkhyq7SU9slprRQv-sC2ykiRZfJZVANbhS8YHuNzM9el9TdL3m32UcJbvqC7tdfDlBTEH8wucltyXlf57hUMPYmSVdLlDpQ-apDOH1IhWtjYZ_WZQUlDMQaVmGX8WgtAUgfM-nDYkHAstzqOLZbQ';
 
   useEffect(() => {
     if (!isRecording && messages?.length > 0){
@@ -85,14 +86,19 @@ export default function Speech(props) {
   useEffect(() => {
     //convert response to speech
     if (response) {
+      const voices = synth.getVoices();
       const speech = new SpeechSynthesisUtterance(response);
+      speech.rate = 1;
+      speech.pitch = 1.3;
+      speech.voice = voices[50];
+      synth.speak(speech);
       speech.onstart = () => {
         props.onSpeaking(true);
       };
       speech.onend = () => {
         props.onSpeaking(false);
       };
-  
+
       window.speechSynthesis.speak(speech);
     }
   }, [response]);
